@@ -165,16 +165,20 @@ const questions = [
 ];
 
 function FlashCards() {
-  const [usedId, setUsedId] = useState(9302);
+  const [usedId, setUsedId] = useState(null);
 
-  function handleClick() {
-    setUsedId();
+  function handleClick(id) {
+    setUsedId(id !== usedId ? id : null);
   }
 
   return (
-    <div className="flashcards" onClick={handleClick}>
+    <div className="flashcards">
       {questions.map((data) => (
-        <div className={usedId === data.id ? "selected" : ""}>
+        <div
+          key={data.id}
+          onClick={() => handleClick(data.id)}
+          className={usedId === data.id ? "selected" : ""}
+        >
           <p>{usedId === data.id ? data.answer : data.question}</p>
         </div>
       ))}
